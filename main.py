@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import json
 import os
@@ -9,11 +10,22 @@ from services.requirement_engine import get_requirements
 from services.recommendation_engine import get_recommendations
 
 
+# ============================================================
+# APP
+# ============================================================
+
 app = FastAPI(
     title="WrapWise - Intelligent Food Packaging",
     description="AI-assisted food packaging recommendation system",
     version="1.0"
 )
+
+
+# ============================================================
+# BASE DIRECTORY
+# ============================================================
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # ============================================================
@@ -30,15 +42,32 @@ app.add_middleware(
 
 
 # ============================================================
+# STATIC FRONTEND FILES
+# ============================================================
+
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+
+app.mount(
+    "/frontend",
+    StaticFiles(directory=FRONTEND_DIR),
+    name="frontend"
+)
+
+
+# ============================================================
 # LOAD DATABASES
 # ============================================================
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-with open(os.path.join(BASE_DIR, "data", "commodities.json"), "r") as file:
+with open(
+    os.path.join(BASE_DIR, "data", "commodities.json"),
+    "r"
+) as file:
     commodities = json.load(file)
 
-with open(os.path.join(BASE_DIR, "data", "packaging.json"), "r") as file:
+with open(
+    os.path.join(BASE_DIR, "data", "packaging.json"),
+    "r"
+) as file:
     packaging = json.load(file)
 
 
@@ -59,14 +88,13 @@ class RecommendationRequest(BaseModel):
 
 
 # ============================================================
-# HOME - SERVE FRONTEND
+# HOME
 # ============================================================
 
 @app.get("/")
 def home():
     frontend_path = os.path.join(
-        BASE_DIR,
-        "frontend",
+        FRONTEND_DIR,
         "index (1).html"
     )
 

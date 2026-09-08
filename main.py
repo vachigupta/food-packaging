@@ -29,6 +29,19 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # ============================================================
+# FRONTEND DIRECTORY
+# ============================================================
+
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+
+app.mount(
+    "/frontend",
+    StaticFiles(directory=FRONTEND_DIR),
+    name="frontend"
+)
+
+
+# ============================================================
 # CORS
 # ============================================================
 
@@ -38,19 +51,6 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-
-
-# ============================================================
-# STATIC FRONTEND FILES
-# ============================================================
-
-FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
-
-app.mount(
-    "/frontend",
-    StaticFiles(directory=FRONTEND_DIR),
-    name="frontend"
 )
 
 
@@ -88,7 +88,7 @@ class RecommendationRequest(BaseModel):
 
 
 # ============================================================
-# HOME
+# HOME PAGE
 # ============================================================
 
 @app.get("/")
@@ -131,7 +131,7 @@ def get_packaging():
 
 
 # ============================================================
-# GET REQUIREMENTS
+# GET COMMODITY REQUIREMENTS
 # ============================================================
 
 @app.get("/requirements/{commodity}")
@@ -163,6 +163,10 @@ def recommend(request: RecommendationRequest):
 
     commodity = request.commodity.lower()
 
+    # --------------------------------------------------------
+    # Check commodity
+    # --------------------------------------------------------
+
     if commodity not in commodities:
         return {
             "status": "error",
@@ -170,7 +174,15 @@ def recommend(request: RecommendationRequest):
             "recommendations": []
         }
 
+    # --------------------------------------------------------
+    # Get packaging requirements
+    # --------------------------------------------------------
+
     requirements = get_requirements(commodity)
+
+    # --------------------------------------------------------
+    # Generate recommendations
+    # --------------------------------------------------------
 
     recommendations = get_recommendations(
         requirements=requirements,
@@ -182,6 +194,10 @@ def recommend(request: RecommendationRequest):
         priority=request.priority,
         weights=request.weights
     )
+
+    # --------------------------------------------------------
+    # Return complete response
+    # --------------------------------------------------------
 
     return {
         "status": "success",

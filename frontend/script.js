@@ -2,9 +2,7 @@
    WRAPWISE — INTELLIGENT FOOD PACKAGING
    FRONTEND CONTROLLER
    ============================================================ */
-
-const API_ENDPOINT = "/api/recommend";
-
+const API_ENDPOINT = "https://food-packaging.onrender.com/api/recommend";
 // ============================================================
 // COMMODITY KNOWLEDGE BASE
 // ============================================================

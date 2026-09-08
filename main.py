@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import json
+import os
 
 from services.requirement_engine import get_requirements
 from services.recommendation_engine import get_recommendations
@@ -20,10 +22,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:5500",
-        "http://localhost:5500"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,10 +33,12 @@ app.add_middleware(
 # LOAD DATABASES
 # ============================================================
 
-with open("data/commodities.json", "r") as file:
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(BASE_DIR, "data", "commodities.json"), "r") as file:
     commodities = json.load(file)
 
-with open("data/packaging.json", "r") as file:
+with open(os.path.join(BASE_DIR, "data", "packaging.json"), "r") as file:
     packaging = json.load(file)
 
 
@@ -58,15 +59,18 @@ class RecommendationRequest(BaseModel):
 
 
 # ============================================================
-# HOME
+# HOME - SERVE FRONTEND
 # ============================================================
 
 @app.get("/")
 def home():
-    return {
-        "status": "running",
-        "message": "WrapWise backend is running!"
-    }
+    frontend_path = os.path.join(
+        BASE_DIR,
+        "frontend",
+        "index (1).html"
+    )
+
+    return FileResponse(frontend_path)
 
 
 # ============================================================
@@ -131,7 +135,6 @@ def recommend(request: RecommendationRequest):
 
     commodity = request.commodity.lower()
 
-    # Check commodity
     if commodity not in commodities:
         return {
             "status": "error",
@@ -139,10 +142,8 @@ def recommend(request: RecommendationRequest):
             "recommendations": []
         }
 
-    # Infer requirements
     requirements = get_requirements(commodity)
 
-    # Generate recommendations
     recommendations = get_recommendations(
         requirements=requirements,
         temperature=request.temperature,

@@ -1,0 +1,46 @@
+{
+  "wheat": {
+    "name": "Wheat Grain",
+    "moisture_sensitivity": "high",
+    "gas_exchange_requirement": "low",
+    "light_sensitivity": "medium",
+    "mechanical_sensitivity": "medium",
+    "microbial_fungal_susceptibility": "high"
+  },
+
+  "rice": {
+    "name": "Rice Grain",
+    "moisture_sensitivity": "high",
+    "gas_exchange_requirement": "low",
+    "light_sensitivity": "medium",
+    "mechanical_sensitivity": "medium",
+    "microbial_fungal_susceptibility": "high"
+  },
+
+  "maize": {
+    "name": "Maize/Corn Grain",
+    "moisture_sensitivity": "high",
+    "gas_exchange_requirement": "low",
+    "light_sensitivity": "medium",
+    "mechanical_sensitivity": "medium",
+    "microbial_fungal_susceptibility": "high"
+  },
+
+  "potato": {
+    "name": "Potato",
+    "moisture_sensitivity": "medium",
+    "gas_exchange_requirement": "high",
+    "light_sensitivity": "high",
+    "mechanical_sensitivity": "high",
+    "microbial_fungal_susceptibility": "high"
+  },
+
+  "tomato": {
+    "name": "Tomato",
+    "moisture_sensitivity": "high",
+    "gas_exchange_requirement": "high",
+    "light_sensitivity": "medium",
+    "mechanical_sensitivity": "high",
+    "microbial_fungal_susceptibility": "high"
+  }
+}

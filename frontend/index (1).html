@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        WrapWise — Intelligent Food Packaging
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-top">
+
+            <h1>
+                WrapWise
+            </h1>
+
+            <span class="hero-sub">
+                intelligent packaging, matched to what's inside
+            </span>
+
+        </div>
+
+
+        <p class="hero-desc">
+
+            An AI-assisted food packaging recommendation system
+            that converts commodity characteristics and operating
+            conditions into packaging requirements, then ranks
+            suitable packaging structures.
+
+        </p>
+
+
+        <div class="hero-flow">
+
+            <span>Commodity</span>
+
+            <span>→</span>
+
+            <span>Requirements</span>
+
+            <span>→</span>
+
+            <span>Packaging</span>
+
+            <span>→</span>
+
+            <span>Top 3</span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         INPUT SECTION
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="section-kicker">
+            01 / Factory input
+        </div>
+
+
+        <h2>
+            Packaging request
+        </h2>
+
+
+        <p class="panel-note">
+
+            Provide the commodity and operating conditions.
+            The system will infer the packaging properties
+            required for the intended storage environment.
+
+        </p>
+
+
+        <div class="field-grid">
+
+
+            <!-- FOOD -->
+
+            <div class="field">
+
+                <label for="foodSelect">
+                    Food commodity
+                </label>
+
+                <select id="foodSelect">
+
+                    <option value="wheat">
+                        Wheat grain
+                    </option>
+
+                    <option value="rice">
+                        Rice grain
+                    </option>
+
+                    <option value="maize">
+                        Maize / Corn grain
+                    </option>
+
+                    <option value="potato">
+                        Potato
+                    </option>
+
+                    <option value="tomato">
+                        Tomato
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <div class="field">
+
+                <label for="formSelect">
+                    Form / state
+                </label>
+
+                <select id="formSelect">
+
+                    <option value="whole_grain">
+                        Whole grain
+                    </option>
+
+                    <option value="fresh_whole">
+                        Fresh whole produce
+                    </option>
+
+                    <option value="fresh_cut">
+                        Fresh cut
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- TEMPERATURE -->
+
+            <div class="field">
+
+                <label for="temperatureInput">
+                    Temperature (°C)
+                </label>
+
+                <input
+                    type="number"
+                    id="temperatureInput"
+                    min="-30"
+                    max="60"
+                    step="0.5"
+                    value="30"
+                >
+
+            </div>
+
+
+
+            <!-- HUMIDITY -->
+
+            <div class="field">
+
+                <label for="humidityInput">
+                    Relative humidity (%)
+                </label>
+
+                <input
+                    type="number"
+                    id="humidityInput"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="70"
+                >
+
+            </div>
+
+
+
+            <!-- SHELF LIFE -->
+
+            <div class="field">
+
+                <label for="shelfInput">
+                    Target shelf life (days)
+                </label>
+
+                <input
+                    type="number"
+                    id="shelfInput"
+                    min="1"
+                    max="1000"
+                    value="180"
+                >
+
+            </div>
+
+
+
+            <!-- STORAGE -->
+
+            <div class="field">
+
+                <label for="storageSelect">
+                    Storage condition
+                </label>
+
+                <select id="storageSelect">
+
+                    <option value="ambient">
+                        Ambient
+                    </option>
+
+                    <option value="chilled">
+                        Chilled (2–8°C)
+                    </option>
+
+                    <option value="frozen">
+                        Frozen
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- TRANSPORT -->
+
+            <div class="field">
+
+                <label for="transportInput">
+                    Transportation distance (km)
+                </label>
+
+                <input
+                    type="number"
+                    id="transportInput"
+                    min="0"
+                    max="10000"
+                    value="500"
+                >
+
+            </div>
+
+
+
+            <!-- PRIORITY -->
+
+            <div class="field">
+
+                <label for="prioritySelect">
+                    Primary optimization priority
+                </label>
+
+                <select id="prioritySelect">
+
+                    <option value="shelf_life">
+                        Shelf life
+                    </option>
+
+                    <option value="cost">
+                        Cost
+                    </option>
+
+                    <option value="sustainability">
+                        Sustainability
+                    </option>
+
+                    <option value="balanced">
+                        Balanced
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PROFILE -->
+
+        <div class="subheading">
+            Commodity knowledge-base profile
+        </div>
+
+
+        <div
+            class="profile-tags"
+            id="profileTags"
+        ></div>
+
+
+
+        <!-- WEIGHTS -->
+
+        <div class="subheading">
+            Recommendation weighting
+        </div>
+
+
+        <div class="sliders">
+
+
+            <div class="slider-row">
+
+                <label>
+
+                    <span>
+                        Shelf-life protection
+                    </span>
+
+                    <span
+                        class="val"
+                        id="wShelfVal"
+                    >
+                        7
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="range"
+                    id="wShelf"
+                    min="0"
+                    max="10"
+                    value="7"
+                >
+
+            </div>
+
+
+
+            <div class="slider-row">
+
+                <label>
+
+                    <span>
+                        Cost efficiency
+                    </span>
+
+                    <span
+                        class="val"
+                        id="wCostVal"
+                    >
+                        5
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="range"
+                    id="wCost"
+                    min="0"
+                    max="10"
+                    value="5"
+                >
+
+            </div>
+
+
+
+            <div class="slider-row">
+
+                <label>
+
+                    <span>
+                        Sustainability
+                    </span>
+
+                    <span
+                        class="val"
+                        id="wEcoVal"
+                    >
+                        5
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="range"
+                    id="wEco"
+                    min="0"
+                    max="10"
+                    value="5"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BUTTON -->
+
+        <div class="generate-row">
+
+            <button
+                class="primary"
+                id="generateBtn"
+                type="button"
+            >
+                Generate recommendation
+            </button>
+
+
+            <span
+                class="loading-text"
+                id="loadingText"
+            >
+                Connecting to recommendation engine…
+            </span>
+
+        </div>
+
+
+
+        <!-- HOW IT WORKS -->
+
+        <details class="model-note">
+
+            <summary>
+                How the system works
+            </summary>
+
+            <p>
+
+                The frontend collects commodity and operating
+                conditions and sends them to the recommendation
+                engine. The backend uses the commodity knowledge
+                base, packaging database, requirement inference
+                rules and ranking model to return the most suitable
+                packaging structures.
+
+                The frontend only displays the resulting
+                recommendation.
+
+            </p>
+
+        </details>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         REQUIREMENTS
+    ====================================================== -->
+
+    <section
+        class="panel"
+        id="requirementsSection"
+    >
+
+        <div class="section-kicker">
+            02 / Requirement inference
+        </div>
+
+
+        <h2>
+            Required packaging properties
+        </h2>
+
+
+        <p class="panel-note">
+
+            These requirements are inferred from the commodity
+            and operating conditions rather than manually
+            specified by the factory.
+
+        </p>
+
+
+        <div
+            class="requirements-grid"
+            id="requirementsGrid"
+        >
+
+            <div class="requirement empty">
+
+                Generate a recommendation to see
+                inferred requirements.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RESULTS
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="section-kicker">
+            03 / Recommendation engine
+        </div>
+
+
+        <div id="results-placeholder">
+
+            Select a commodity, configure the operating
+            conditions, and generate a recommendation to
+            see the top packaging structures.
+
+        </div>
+
+
+        <div
+            id="results-body"
+            style="display: none;"
+        >
+
+            <div class="results-heading">
+
+                <div>
+
+                    <h2 id="resultsTitle">
+                        Recommended packaging
+                    </h2>
+
+
+                    <p
+                        class="results-description"
+                        id="resultsDescription"
+                    ></p>
+
+                </div>
+
+
+                <span
+                    class="meta"
+                    id="resultsMeta"
+                ></span>
+
+            </div>
+
+
+
+            <!-- RECOMMENDATIONS -->
+
+            <div id="cardsHost"></div>
+
+
+
+            <!-- WARNING -->
+
+            <div
+                class="active-callout"
+                id="validationWarning"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         KNOWLEDGE BASE
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="section-kicker">
+            04 / Knowledge base
+        </div>
+
+
+        <h2>
+            Prototype data scope
+        </h2>
+
+
+        <p class="panel-note">
+
+            The MVP currently covers five commodities and
+            six representative packaging structures.
+
+        </p>
+
+
+        <div class="scope-grid">
+
+
+            <div class="scope-card">
+
+                <span class="scope-number">
+                    05
+                </span>
+
+                <strong>
+                    Commodities
+                </strong>
+
+                <span>
+                    Wheat · Rice · Maize · Potato · Tomato
+                </span>
+
+            </div>
+
+
+
+            <div class="scope-card">
+
+                <span class="scope-number">
+                    06
+                </span>
+
+                <strong>
+                    Packaging structures
+                </strong>
+
+                <span>
+                    LDPE · HDPE · PP woven · PET · PET/PE · Aluminium/PE
+                </span>
+
+            </div>
+
+
+
+            <div class="scope-card">
+
+                <span class="scope-number">
+                    07
+                </span>
+
+                <strong>
+                    Packaging properties
+                </strong>
+
+                <span>
+                    Moisture · Gas · Light · Strength ·
+                    Sealability · Temperature · Food contact
+                </span>
+
+            </div>
+
+
+
+            <div class="scope-card">
+
+                <span class="scope-number">
+                    03
+                </span>
+
+                <strong>
+                    Recommendation stages
+                </strong>
+
+                <span>
+                    Filter · Rank · Explain
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <strong>
+            WrapWise — Prototype
+        </strong>
+
+        <br>
+
+        Recommendation outputs are intended for hackathon
+        demonstration. They are not validated commercial
+        packaging specifications or food-contact certifications.
+
+    </footer>
+
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

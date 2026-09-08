@@ -1,6 +1,6 @@
 {
   "LDPE": {
-    "name": "LDPE Film/Bag",
+    "name": "Flexible Plastic Bag (LDPE)",
     "family": "Polyethylene Film",
     "OTR": 8000,
     "OTR_unit": "cc/m2/day",
@@ -21,7 +21,7 @@
   },
 
   "HDPE": {
-    "name": "HDPE Bag/Container",
+    "name": "Strong Plastic Bag/Container (HDPE)",
     "family": "High-Density Polyethylene",
     "OTR": 1500,
     "OTR_unit": "cc/m2/day",
@@ -42,7 +42,7 @@
   },
 
   "PP_WOVEN": {
-    "name": "PP Woven Bag",
+    "name": "Woven Plastic Sack (PP)",
     "family": "Polypropylene",
     "OTR": 5000,
     "OTR_unit": "cc/m2/day",
@@ -63,7 +63,7 @@
   },
 
   "PET": {
-    "name": "PET Film/Container",
+    "name": "Strong PET Plastic",
     "family": "Polyester",
     "OTR": 80,
     "OTR_unit": "cc/m2/day",
@@ -84,7 +84,7 @@
   },
 
   "PET_PE": {
-    "name": "PET/PE Multilayer",
+    "name": "Multi-Layer Plastic Film",
     "family": "Multilayer Polymer",
     "OTR": 30,
     "OTR_unit": "cc/m2/day",
@@ -105,7 +105,7 @@
   },
 
   "AL_PE": {
-    "name": "Aluminium/PE Laminate",
+    "name": "Aluminium + Plastic Barrier Pack",
     "family": "Aluminium Barrier Laminate",
     "OTR": 0.1,
     "OTR_unit": "cc/m2/day",
@@ -113,7 +113,7 @@
     "WVTR_unit": "g/m2/day",
     "thickness": 100,
     "thickness_unit": "micron",
-    "light_barrier": "very high",
+    "light_barrier": "high",
     "mechanical_strength": "high",
     "sealability": "excellent",
     "temperature_min": -40,
